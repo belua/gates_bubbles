@@ -31,10 +31,11 @@ class BubbleChart
     # nice looking colors - no reason to buck the trend
     @fill_color = d3.scale.ordinal()
       .domain(["low", "medium", "high"])
-      .range(["#d84b2a", "#beccae", "#7aa25c"])
+      .range(["#b16873", "#ccdad1", "#679176"])
 
     # use the max total_amount in the data as the max in the scale's domain
     max_amount = d3.max(@data, (d) -> parseInt(d.total_amount))
+    max_amount = 5000
     @radius_scale = d3.scale.pow().exponent(0.5).domain([0, max_amount]).range([2, 85])
     
     this.create_nodes()
@@ -175,9 +176,9 @@ class BubbleChart
 
   show_details: (data, i, element) =>
     d3.select(element).attr("stroke", "black")
-    content = "<span class=\"name\">Title:</span><span class=\"value\"> #{data.name}</span><br/>"
-    content +="<span class=\"name\">Amount:</span><span class=\"value\"> $#{addCommas(data.value)}</span><br/>"
-    content +="<span class=\"name\">Year:</span><span class=\"value\"> #{data.year}</span>"
+    content = "<span class=\"name\"> #{data.name}</span><br/>"
+    content +="<span class=\"value\"> ⌘#{addCommas(data.value)}</span><br/>"
+    # content +="<span class=\"name\">Year:</span><span class=\"value\"> #{data.year}</span>"
     @tooltip.showTooltip(content,d3.event)
 
 
